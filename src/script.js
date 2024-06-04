@@ -15,15 +15,28 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
-/**
- * House
- */
-// Temporary sphere
-const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 32, 32),
-    new THREE.MeshStandardMaterial({ roughness: 0.7 })
+// House Container
+
+const house = new THREE.Group()
+scene.add(house)
+
+// Walls
+
+const walls = THREE.Mesh(
+    new THREE.BoxGeometry(4, 2.5, 4),
+    new THREE.MeshStandardMaterial()
 )
-scene.add(sphere)
+house.add(walls) // add to group house instead of scene
+
+// Floor
+
+const floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(20,20),
+    new THREE.MeshStandardMaterial()
+)
+floor.rotation.x = Math.PI * 0.5
+scene.add(floor)
+
 
 /**
  * Lights
