@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Timer } from 'three/addons/misc/Timer.js'
 import GUI from 'lil-gui'
+import { Sky } from 'three/addons/objects/Sky.js'
 
 /**
  * Base
@@ -332,6 +333,22 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
+/** Sky */
+
+const sky = new Sky()
+sky.scale.set(100,100,100)
+scene.add(sky)
+sky.material.uniforms['turbidity'].value = 10
+sky.material.uniforms['rayleigh'].value = 3
+sky.material.uniforms['mieCoefficient'].value = 0.1
+sky.material.uniforms['mieDirectionalG'].value = 0.95
+sky.material.uniforms['sunPosition'].value.set(0.3, -0.038, -0.95)
+
+
+/** Fog */
+
+// scene.fog = new THREE.Fog('#ff0000', 10, 13)
+scene.fog = new THREE.FogExp2('#02343f', 0.05)
 /**
  * Animate
  */
